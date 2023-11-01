@@ -1,0 +1,183 @@
+/* src/ImageGallery.css */
+
+.image-gallery {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.top-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.top-container h2 {
+  margin: 0;
+}
+
+.top-container button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.bottom-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.image-container {
+  position: relative;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.add-image-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.selected {
+  border: 2px solid #007bff;
+}
+
+.featured {
+  grid-row: span 2;
+  grid-column: span 2;
+}
+
+
+/* src/ImageGallery.css */
+
+/* ... (existing CSS code) ... */
+
+.bottom-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.image-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.checkbox {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+  display: none;
+}
+
+.image-container:hover .checkbox {
+  display: block;
+}
+
+.checkbox input {
+  cursor: pointer;
+}
+
+.add-image-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 24px;
+}
+
+.add-image-button p {
+  margin: 0;
+}
+
+.add-image-button.selected {
+  border: 2px solid #007bff;
+}
+
+.featured {
+  grid-row: span 2;
+  grid-column: span 2;
+}
+
+
+/* dark overlay */
+
+.image-container {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  transition: filter 0.3s;
+}
+
+.image-container:hover img {
+  filter: brightness(80%);
+}
+
+.checkbox {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+  display: none;
+}
+
+.image-container.selected .checkbox {
+  display: block;
+}
+
+.checkbox input {
+  cursor: pointer;
+}
+
+.add-image-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 24px;
+}
+
+.add-image-button p {
+  margin: 0;
+}
+
+.add-image-button.selected {
+  border: 2px solid #007bff;
+}
+
+.featured {
+  grid-row: span 2;
+  grid-column: span 2;
+}
