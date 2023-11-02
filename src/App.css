@@ -151,6 +151,10 @@
   display: none;
 }
 
+.image-container.selected img {
+  filter: brightness(70%);
+}
+
 .image-container.selected .checkbox {
   display: block;
 }
