@@ -28,6 +28,8 @@ const App = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [featuredImage, setFeaturedImage] = useState(0); // Set the first image as the featured image
 
+  const [draggedImageIndex, setDraggedImageIndex] = useState(null);
+
   const handleImageClick = (index) => {
     const newSelectedImages = [...selectedImages];
 
@@ -40,6 +42,7 @@ const App = () => {
     setSelectedImages(newSelectedImages);
   };
   
+  
 
   const handleDeleteImages = () => {
     setImages(images.filter((_, index) => !selectedImages.includes(index)));
@@ -48,7 +51,13 @@ const App = () => {
 
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData("index", index);
+    e.target.classList.add("dragged"); // Add 'dragged' class to the dragged image container
   };
+  
+  const handleDragEnd = (e) => {
+    e.target.classList.remove("dragged"); // Remove 'dragged' class when drag operation ends
+  };
+  
 
   const handleDrop = (e, newIndex) => {
     e.preventDefault();
@@ -83,16 +92,17 @@ const App = () => {
         )}
       </div>
       <div className="bottom-container">
-        <div
-          className={`image-container featured ${
-            selectedImages.includes(0) ? "selected" : ""
-          }`}
-          draggable
-          onDragStart={(e) => handleDragStart(e, 0)}
-          onDrop={(e) => handleDrop(e, 0)}
-          onDragOver={(e) => e.preventDefault()}
-          onClick={() => handleImageClick(0)}
-        >
+      <div
+        className={`image-container featured ${
+          selectedImages.includes(0) ? "selected" : ""
+        }`}
+        draggable
+        onDragStart={(e) => handleDragStart(e, 0)}
+        onDrop={(e) => handleDrop(e, 0)}
+        onDragOver={(e) => e.preventDefault()}
+        onClick={() => handleImageClick(0)}
+        onDragEnd={handleDragEnd} 
+      >
           <img src={images[0]} alt={`Image 0`} />
           <div className="checkbox">
             <input
