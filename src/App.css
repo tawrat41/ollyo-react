@@ -1,4 +1,6 @@
 
+
+
 .image-gallery {
   max-width: 800px;
   margin: 0 auto;
@@ -14,6 +16,8 @@
   border: 1px solid grey;
   border-radius: 3px;
   padding: 8px 15px;
+
+  margin-top: 20px;
 }
 
 .top-container h2 {

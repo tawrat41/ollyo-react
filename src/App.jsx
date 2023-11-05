@@ -1,11 +1,16 @@
 /* eslint-disable no-unused-vars */
+
+/*
+Md. Tawratur Rashid Tanha
+*/
+
 import { useState } from "react";
 import { FaImage } from "react-icons/fa"; 
 import reactLogo from "./assets/react.svg"; 
 import viteLogo from "/vite.svg";
 import "./App.css";
 
-// Importing images
+// importing images
 import img1 from "./assets/images/image-1.webp";
 import img2 from "./assets/images/image-2.webp";
 import img3 from "./assets/images/image-3.webp";
@@ -16,7 +21,7 @@ import img7 from "./assets/images/image-7.webp";
 import img8 from "./assets/images/image-8.webp";
 
 const App = () => {
-  // Setting up state for images and selected images
+  // setting up state for images and selected images
   const [images, setImages] = useState([
     img1,
     img2,
@@ -30,7 +35,8 @@ const App = () => {
 
   const [selectedImages, setSelectedImages] = useState([]);
 
-  // Function to handle clicking on images for selection
+  // function to handle clicking on images for selection
+  // whether the image should be selected or deselected. It keeps track of which images are currently selected by updating the selectedImages list
   const handleImageClick = (index) => {
     const newSelectedImages = [...selectedImages];
 
@@ -43,25 +49,28 @@ const App = () => {
     setSelectedImages(newSelectedImages);
   };
 
-  // Function to handle deleting selected images
+  // function to handle deleting selected images
+  // goes through the list of images and removes the ones that are currently selected. Then, it updates the list of images and clears out the selected ones
   const handleDeleteImages = () => {
     setImages(images.filter((_, index) => !selectedImages.includes(index)));
     setSelectedImages([]);
   };
 
   // Function to handle the start of a drag operation
+  // it sets up some info about the dragged image, like its index and whether it was selected or not
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData("index", index);
     e.dataTransfer.setData("isSelected", selectedImages.includes(index));
     e.target.classList.add("dragged");
   };
 
-  // Function to handle the end of a drag operation
+  // function to handle the end of a drag operation
   const handleDragEnd = (e) => {
     e.target.classList.remove("dragged");
   };
 
-  // Function to handle dropping an image into a new position
+  // function to handle dropping an image into a new position
+  // it figures out where image is dropped and rearranged accordingly. It also updates the list of selected images to match the new order.
   const handleDrop = (e, newIndex) => {
     e.preventDefault();
     const draggedIndex = e.dataTransfer.getData("index");
@@ -81,7 +90,7 @@ const App = () => {
     setSelectedImages(updatedSelectedImages);
   };
 
-  // Function to handle uploading a new image
+  // function to handle uploading a new image
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -95,7 +104,7 @@ const App = () => {
 
   return (
     <div className="image-gallery">
-      {/* Top container showing number of selected images and delete button */}
+      {/* top container showing number of selected images and delete button */}
       <div className="top-container">
         {selectedImages.length === 0 ? (
           <h2>Image Gallery</h2>
@@ -110,7 +119,7 @@ const App = () => {
         )}
       </div>
 
-      {/* Bottom container displaying images */}
+      {/* bottom container displaying images */}
       <div className="bottom-container">
         {/* Featured image (first image) */}
         <div
@@ -134,7 +143,7 @@ const App = () => {
           </div>
         </div>
 
-        {/* Remaining images */}
+        {/* remaining images */}
         {images.slice(1).map((src, index) => (
           <div
             key={index}
@@ -158,7 +167,7 @@ const App = () => {
           </div>
         ))}
 
-        {/* Add image button */}
+        {/* add image button */}
         <div
           className={`image-container add-image-button ${
             selectedImages.includes(images.length) ? "selected" : ""
