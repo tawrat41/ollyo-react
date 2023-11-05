@@ -1,8 +1,9 @@
-/* src/ImageGallery.css */
 
 .image-gallery {
   max-width: 800px;
   margin: 0 auto;
+  padding: 5px;
+
 }
 
 .top-container {
@@ -10,17 +11,21 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  border: 1px solid grey;
+  border-radius: 3px;
+  padding: 8px 15px;
 }
 
 .top-container h2 {
   margin: 0;
 }
-
+  
 .top-container button {
   background-color: #dc3545;
   color: white;
   border: none;
-  padding: 10px 20px;
+  border-radius: 3px;
+  padding: 5px 10px;
   cursor: pointer;
   font-size: 16px;
 }
@@ -32,14 +37,13 @@
 }
 
 
-/* src/ImageGallery.css */
 
 .image-container {
   position: relative;
   cursor: pointer;
   border: 1px solid #ccc;
   border-radius: 8px;
-  transition: transform 0.3s; /* Add a transition for smoother animation */
+  transition: transform 0.3s; 
   padding: 2px;
 }
 
@@ -72,11 +76,15 @@
 .add-image-button {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: white;
-  font-size: 24px;
+  background-color: rgba(175, 175, 175, 0.6);
+  font-size: 15px;
+  border: 2px dotted grey;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  height: 7rem;
 }
 
 .add-image-button p {
@@ -92,20 +100,19 @@
   grid-column: span 2;
 }
 
-/* Dark overlay */
 
 .image-container.selected {
   filter: brightness(70%);
-  transition: filter 0.3s; /* Add transition for selected state */
+  transition: filter 0.3s; 
 }
 
 .image-container:hover {
   filter: brightness(70%);
-  transition: filter 0.3s; /* Add transition for hover state */
+  transition: filter 0.3s; 
 }
 
-/* Additional styles for drag-and-drop animation */
+
 
 .image-container.dragged {
-  transition: transform 0.3s; /* Add transition for dragged state */
+  transition: transform 0.3s; 
 }

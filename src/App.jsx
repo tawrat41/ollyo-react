@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { FaImage } from "react-icons/fa"; 
+import reactLogo from "./assets/react.svg"; 
 import viteLogo from "/vite.svg";
 import "./App.css";
 
+// Importing images
 import img1 from "./assets/images/image-1.webp";
 import img2 from "./assets/images/image-2.webp";
 import img3 from "./assets/images/image-3.webp";
@@ -14,6 +16,7 @@ import img7 from "./assets/images/image-7.webp";
 import img8 from "./assets/images/image-8.webp";
 
 const App = () => {
+  // Setting up state for images and selected images
   const [images, setImages] = useState([
     img1,
     img2,
@@ -26,10 +29,8 @@ const App = () => {
   ]);
 
   const [selectedImages, setSelectedImages] = useState([]);
-  const [featuredImage, setFeaturedImage] = useState(0); // Set the first image as the featured image
 
-  const [draggedImageIndex, setDraggedImageIndex] = useState(null);
-
+  // Function to handle clicking on images for selection
   const handleImageClick = (index) => {
     const newSelectedImages = [...selectedImages];
 
@@ -42,21 +43,25 @@ const App = () => {
     setSelectedImages(newSelectedImages);
   };
 
+  // Function to handle deleting selected images
   const handleDeleteImages = () => {
     setImages(images.filter((_, index) => !selectedImages.includes(index)));
     setSelectedImages([]);
   };
 
+  // Function to handle the start of a drag operation
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData("index", index);
     e.dataTransfer.setData("isSelected", selectedImages.includes(index));
     e.target.classList.add("dragged");
   };
 
+  // Function to handle the end of a drag operation
   const handleDragEnd = (e) => {
     e.target.classList.remove("dragged");
   };
 
+  // Function to handle dropping an image into a new position
   const handleDrop = (e, newIndex) => {
     e.preventDefault();
     const draggedIndex = e.dataTransfer.getData("index");
@@ -65,20 +70,18 @@ const App = () => {
     updatedImages.splice(newIndex, 0, draggedImage);
     setImages(updatedImages);
 
-    const updatedSelectedImages = selectedImages.map(index => {
-        if (index === parseInt(draggedIndex)) {
-            return newIndex;
-        } else if (index === newIndex) {
-            return parseInt(draggedIndex);
-        }
-        return index;
+    const updatedSelectedImages = selectedImages.map((index) => {
+      if (index === parseInt(draggedIndex)) {
+        return newIndex;
+      } else if (index === newIndex) {
+        return parseInt(draggedIndex);
+      }
+      return index;
     });
     setSelectedImages(updatedSelectedImages);
-};
+  };
 
-
-
-
+  // Function to handle uploading a new image
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -92,17 +95,24 @@ const App = () => {
 
   return (
     <div className="image-gallery">
+      {/* Top container showing number of selected images and delete button */}
       <div className="top-container">
         {selectedImages.length === 0 ? (
-          <h2>Gallery</h2>
+          <h2>Image Gallery</h2>
         ) : (
           <>
-            <p>{selectedImages.length} image(s) selected</p>
-            <button onClick={handleDeleteImages}>Delete</button>
+            <p>
+              <input type="checkbox" checked readOnly /> {selectedImages.length}{" "}
+              Image selected
+            </p>
+            <button onClick={handleDeleteImages}>Delete Files</button>
           </>
         )}
       </div>
+
+      {/* Bottom container displaying images */}
       <div className="bottom-container">
+        {/* Featured image (first image) */}
         <div
           className={`image-container featured ${
             selectedImages.includes(0) ? "selected" : ""
@@ -123,6 +133,8 @@ const App = () => {
             />
           </div>
         </div>
+
+        {/* Remaining images */}
         {images.slice(1).map((src, index) => (
           <div
             key={index}
@@ -145,12 +157,15 @@ const App = () => {
             </div>
           </div>
         ))}
+
+        {/* Add image button */}
         <div
           className={`image-container add-image-button ${
             selectedImages.includes(images.length) ? "selected" : ""
           }`}
           onClick={() => document.getElementById("file-upload").click()}
         >
+          <FaImage /> <br />
           <p>Add Image</p>
         </div>
         <input
