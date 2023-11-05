@@ -1,8 +1,5 @@
-# React + Vite
+# Image Gallery with React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple image gallery build with React. No image gallery library has been used.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Live Link: https://6547fe26b9207a0fac40abb5--leafy-croissant-c1c0a4.netlify.app/
