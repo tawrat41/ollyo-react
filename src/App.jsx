@@ -49,11 +49,9 @@ const App = () => {
 
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData("index", index);
-    e.dataTransfer.setData("wasSelected", selectedImages.includes(index));
-    e.target.classList.add("dragged"); 
+    e.dataTransfer.setData("isSelected", selectedImages.includes(index));
+    e.target.classList.add("dragged");
   };
-  
-  
 
   const handleDragEnd = (e) => {
     e.target.classList.remove("dragged");
@@ -62,21 +60,24 @@ const App = () => {
   const handleDrop = (e, newIndex) => {
     e.preventDefault();
     const draggedIndex = e.dataTransfer.getData("index");
-    const wasSelected = e.dataTransfer.getData("wasSelected") === "true";
-  
     const updatedImages = [...images];
     const [draggedImage] = updatedImages.splice(draggedIndex, 1);
     updatedImages.splice(newIndex, 0, draggedImage);
     setImages(updatedImages);
-  
-    if (wasSelected) {
-      const updatedSelectedImages = [...selectedImages];
-      const updatedIndex = updatedSelectedImages.indexOf(parseInt(draggedIndex));
-      updatedSelectedImages[updatedIndex] = newIndex;
-      setSelectedImages(updatedSelectedImages);
-    }
-  };
-  
+
+    const updatedSelectedImages = selectedImages.map(index => {
+        if (index === parseInt(draggedIndex)) {
+            return newIndex;
+        } else if (index === newIndex) {
+            return parseInt(draggedIndex);
+        }
+        return index;
+    });
+    setSelectedImages(updatedSelectedImages);
+};
+
+
+
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
