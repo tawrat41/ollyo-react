@@ -41,8 +41,6 @@ const App = () => {
 
     setSelectedImages(newSelectedImages);
   };
-  
-  
 
   const handleDeleteImages = () => {
     setImages(images.filter((_, index) => !selectedImages.includes(index)));
@@ -51,22 +49,34 @@ const App = () => {
 
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData("index", index);
-    e.target.classList.add("dragged"); // Add 'dragged' class to the dragged image container
+    e.dataTransfer.setData("wasSelected", selectedImages.includes(index));
+    e.target.classList.add("dragged"); 
   };
   
+  
+
   const handleDragEnd = (e) => {
-    e.target.classList.remove("dragged"); // Remove 'dragged' class when drag operation ends
+    e.target.classList.remove("dragged");
   };
-  
 
   const handleDrop = (e, newIndex) => {
     e.preventDefault();
     const draggedIndex = e.dataTransfer.getData("index");
+    const wasSelected = e.dataTransfer.getData("wasSelected") === "true";
+  
     const updatedImages = [...images];
     const [draggedImage] = updatedImages.splice(draggedIndex, 1);
     updatedImages.splice(newIndex, 0, draggedImage);
     setImages(updatedImages);
+  
+    if (wasSelected) {
+      const updatedSelectedImages = [...selectedImages];
+      const updatedIndex = updatedSelectedImages.indexOf(parseInt(draggedIndex));
+      updatedSelectedImages[updatedIndex] = newIndex;
+      setSelectedImages(updatedSelectedImages);
+    }
   };
+  
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -92,17 +102,17 @@ const App = () => {
         )}
       </div>
       <div className="bottom-container">
-      <div
-        className={`image-container featured ${
-          selectedImages.includes(0) ? "selected" : ""
-        }`}
-        draggable
-        onDragStart={(e) => handleDragStart(e, 0)}
-        onDrop={(e) => handleDrop(e, 0)}
-        onDragOver={(e) => e.preventDefault()}
-        onClick={() => handleImageClick(0)}
-        onDragEnd={handleDragEnd} 
-      >
+        <div
+          className={`image-container featured ${
+            selectedImages.includes(0) ? "selected" : ""
+          }`}
+          draggable
+          onDragStart={(e) => handleDragStart(e, 0)}
+          onDrop={(e) => handleDrop(e, 0)}
+          onDragOver={(e) => e.preventDefault()}
+          onClick={() => handleImageClick(0)}
+          onDragEnd={handleDragEnd}
+        >
           <img src={images[0]} alt={`Image 0`} />
           <div className="checkbox">
             <input

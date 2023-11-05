@@ -40,6 +40,7 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   transition: transform 0.3s; /* Add a transition for smoother animation */
+  padding: 2px;
 }
 
 .image-container img {
